@@ -26,7 +26,7 @@ class _TicTacToeViewState extends State<TicTacToeView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TicTacToeViewModel>.reactive(
-      viewModelBuilder: () => TicTacToeViewModel(),
+      viewModelBuilder: () => TicTacToeViewModel(context: context),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
@@ -51,42 +51,42 @@ class _TicTacToeViewState extends State<TicTacToeView> {
 
 
               Expanded(
-              child: GridView.builder(
-                padding: const EdgeInsets.all(20.0),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 1.0,
-                  crossAxisSpacing: 25.0,
-                  mainAxisSpacing: 25.0
-                ),
-                itemCount: 9,
-                itemBuilder: (context, index) {
-                  int row = index ~/ 3;
-                  int col = index % 3;
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(20.0),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 1.0,
+                    crossAxisSpacing: 25.0,
+                    mainAxisSpacing: 25.0
+                  ),
+                  itemCount: 9,
+                  itemBuilder: (context, index) {
+                    int row = index ~/ 3;
+                    int col = index % 3;
 
-                  return GestureDetector(
-                    onTap: () => model.play(row, col),
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: model.colorCell(context, row, col),
-                        borderRadius: const BorderRadius.all(Radius.circular(25.0))
-                      ),
-                      child: Center(
-                        child: Text(
-                          model.board[row][col],
-                          style: const TextStyle(
-                            fontSize: 50.0,
-                            fontWeight: FontWeight.bold
+                    return GestureDetector(
+                      onTap: () => model.play(row, col),
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: model.colorCell(context, row, col),
+                          borderRadius: const BorderRadius.all(Radius.circular(25.0))
+                        ),
+                        child: Center(
+                          child: Text(
+                            model.board[row][col],
+                            style: const TextStyle(
+                              fontSize: 50.0,
+                              fontWeight: FontWeight.bold
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
             ]
           ),
         ),

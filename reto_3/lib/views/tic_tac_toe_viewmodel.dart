@@ -8,9 +8,13 @@ class TicTacToeViewModel extends BaseViewModel{
   late List<List<String>> board;
   late String currentPlayer;
   late bool isGameOver;
+  String dialogMessage = '';
+  String dialogTitle = '';
+
+  late BuildContext context;
 
 
-  TicTacToeViewModel()
+  TicTacToeViewModel({required this.context})
   {
     board = List.generate(NUM_ROWS, (_) => List.generate(NUM_ROWS, (_) => ''));
     currentPlayer = HUMAN_PLAYER;
@@ -30,7 +34,6 @@ class TicTacToeViewModel extends BaseViewModel{
   }
 
   void resetBoard(){
-    debugPrint('resetBoard');
     const int rows = NUM_ROWS;
     const int cols = NUM_COLS;
 
@@ -99,18 +102,17 @@ class TicTacToeViewModel extends BaseViewModel{
       notifyListeners();
 
       if(isWinner(currentPlayer)){
+        showDialogMessage(HUMAN_PLAYER, false);
         isGameOver = true;
       }
       else if(isBoardFull()){
+        showDialogMessage("", true);
         isGameOver = true;
       }
       else {
-        currentPlayer = 'O';
+        currentPlayer = AI_PLAYER;
         makeAIMove();
       }
-    }
-    else {
-      debugPrint('not makeMove');
     }
   }
 
@@ -136,14 +138,16 @@ class TicTacToeViewModel extends BaseViewModel{
 
     if(row != -1 && col != -1){
       board[row][col] = 'O';
-      if(isWinner('O')){
+      if(isWinner(AI_PLAYER)){
+        showDialogMessage(AI_PLAYER, false);
         isGameOver = true;
       }
       else if(isBoardFull()){
+        showDialogMessage("" , true);
         isGameOver = true;
       }
       else {
-        currentPlayer = 'X';
+        currentPlayer = HUMAN_PLAYER;
       }
     }
 
@@ -173,6 +177,61 @@ class TicTacToeViewModel extends BaseViewModel{
 
 
     return false;
+  }
+
+
+  void showDialogMessage(String winnerPlayer, bool isDraw){
+    if(winnerPlayer == HUMAN_PLAYER){
+      dialogTitle = 'Ganaste!';
+      dialogMessage = 'Has ganado a la IA!';
+
+      showAlert();
+    }
+    else if(winnerPlayer == AI_PLAYER){
+      dialogTitle = 'Perdiste!';
+      dialogMessage = 'La IA gana!';
+
+      showAlert();
+    }
+    else if(isDraw){
+      dialogTitle = 'Empate!';
+      dialogMessage = 'Ambos jugadores empatan';
+
+      showAlert();
+    }
+    else {
+      dialogTitle = '';
+      dialogMessage = '';
+    }
+
+    notifyListeners();
+  }
+
+  void showAlert(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            dialogTitle,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          content: Text(
+            dialogMessage,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                resetBoard();
+                Navigator.pop(context);
+              },
+              child: const Text('Reiniciar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
 }
