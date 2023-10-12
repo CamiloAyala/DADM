@@ -25,7 +25,7 @@ class BottomNavbarView extends StatelessWidget
         child: Container(
           color: Theme.of(context).colorScheme.background,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 50),
             child: GNav(
               backgroundColor: Theme.of(context).colorScheme.surface,
               color: Theme.of(context).colorScheme.primary,
@@ -34,18 +34,15 @@ class BottomNavbarView extends StatelessWidget
               padding: const EdgeInsets.all(16),
               gap: 8,
               onTabChange: onChangeIndex,
+              haptic: true,
               tabs: const [
+                GButton(
+                  icon: Icons.home_outlined,
+                  text: 'Inicio',
+                ),
                 GButton(
                   icon: Icons.sports_esports_outlined,
                   text: 'Jugar',
-                ),
-                GButton(
-                  icon: Icons.smart_toy_outlined,
-                  text: 'Dificultad',
-                ),
-                GButton(
-                  icon: Icons.logout_outlined,
-                  text: 'Salir',
                 ),
               ],
             )

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reto_4/views/tic_tac_toe/tic_tac_toe_view.dart';
+import 'package:reto_4/views/home/home_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const TicTacToeView(title: 'Reto 4'),
+      home: const HomeView(title: 'Reto 4'),
     );
   }
 }

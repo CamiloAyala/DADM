@@ -94,19 +94,13 @@ class TicTacToeViewModel extends BaseViewModel{
 
 
   void makeAIMove(){
-    int row = -1;
-    int col = -1;    
-
     if(dificultad == Difficulty.easy){
-      debugPrint(dificultad.toString());
       makeRandomMove();
     }
     else if(dificultad == Difficulty.medium){
-      debugPrint(dificultad.toString());
       makeBlockingMove();
     }
     else if(dificultad == Difficulty.hard){
-      debugPrint(dificultad.toString());
       makeWinningMove();
     }
 
@@ -209,6 +203,17 @@ class TicTacToeViewModel extends BaseViewModel{
 
 
     return false;
+  }
+
+  String difficultyName(){
+    switch (dificultad){
+      case Difficulty.easy:
+        return 'Fácil';
+      case Difficulty.medium:
+        return 'Medio';
+      case Difficulty.hard:
+        return 'Difícil';
+    }
   }
 
 
