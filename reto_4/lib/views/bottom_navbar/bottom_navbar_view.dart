@@ -21,13 +21,13 @@ class BottomNavbarView extends StatelessWidget
   {
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => BottomNavbarViewModel(), 
-      builder: (context, BottomNavbarViewModel model, child) => BottomAppBar(
+      builder: (context, BottomNavbarViewModel model, child) => SafeArea(
         child: Container(
           color: Theme.of(context).colorScheme.background,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
             child: GNav(
-              backgroundColor: Theme.of(context).colorScheme.background,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               color: Theme.of(context).colorScheme.primary,
               activeColor: Theme.of(context).colorScheme.background,
               tabBackgroundColor: Theme.of(context).colorScheme.primary,
