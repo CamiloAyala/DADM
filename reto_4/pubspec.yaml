@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   
+  flutter_launcher_icons: ^0.13.1
   google_nav_bar: ^5.0.6
   stacked: ^3.4.1
 
@@ -20,3 +21,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+flutter_laucher_icons:
+  image_path_android: "assets/images/ic_launcher.png"
+  android: true
+  ios: true
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/images/ic_launcher.png"
