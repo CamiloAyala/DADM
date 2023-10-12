@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const TicTacToeView(title: 'Reto 3'),
+      home: const TicTacToeView(title: 'Reto 4'),
     );
   }
 }

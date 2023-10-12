@@ -29,6 +29,9 @@ class _TicTacToeViewState extends State<TicTacToeView> {
     return ViewModelBuilder<TicTacToeViewModel>.reactive(
       viewModelBuilder: () => TicTacToeViewModel(context: context),
       builder: (context, model, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).colorScheme.background,
+
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
           title: Text(
@@ -88,6 +91,7 @@ class _TicTacToeViewState extends State<TicTacToeView> {
                   },
                 ),
               ),
+              SizedBox(height: 1, width: double.infinity, child: ColoredBox(color: Theme.of(context).colorScheme.secondary),),
             ]
           ),
         ),

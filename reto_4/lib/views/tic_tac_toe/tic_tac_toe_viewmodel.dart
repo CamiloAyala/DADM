@@ -18,6 +18,9 @@ class TicTacToeViewModel extends BaseViewModel{
 
   void onChangeIndex(int index){
     _currentIndex = index;
+    if(index == 1){
+      showDifficultyAlert();
+    }
     notifyListeners();
   }
 
@@ -94,19 +97,29 @@ class TicTacToeViewModel extends BaseViewModel{
     int row = -1;
     int col = -1;    
 
-    if(row != -1 && col != -1){
-      board[row][col] = 'O';
-      if(isWinner(aiPlayer)){
-        showDialogMessage(aiPlayer, false);
-        isGameOver = true;
-      }
-      else if(isBoardFull()){
-        showDialogMessage("" , true);
-        isGameOver = true;
-      }
-      else {
-        currentPlayer = humanPlayer;
-      }
+    if(dificultad == Difficulty.easy){
+      debugPrint(dificultad.toString());
+      makeRandomMove();
+    }
+    else if(dificultad == Difficulty.medium){
+      debugPrint(dificultad.toString());
+      makeBlockingMove();
+    }
+    else if(dificultad == Difficulty.hard){
+      debugPrint(dificultad.toString());
+      makeWinningMove();
+    }
+
+    if(isWinner(aiPlayer)){
+      showDialogMessage(aiPlayer, false);
+      isGameOver = true;
+    }
+    else if(isBoardFull()){
+      showDialogMessage("" , true);
+      isGameOver = true;
+    }
+    else {
+      currentPlayer = humanPlayer;
     }
 
     notifyListeners();
@@ -170,7 +183,7 @@ class TicTacToeViewModel extends BaseViewModel{
     }
 
     // Si no se encontró un movimiento ganador, realiza un movimiento aleatorio.
-    makeRandomMove();
+    makeBlockingMove();
   }
 
 
@@ -246,6 +259,60 @@ class TicTacToeViewModel extends BaseViewModel{
                 Navigator.pop(context);
               },
               child: const Text('Reiniciar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showDifficultyAlert(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            dialogTitle,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          content: Column(
+            children: <Widget>[
+              TextButton(
+                onPressed: () {
+                  dificultad = Difficulty.easy;
+                  resetBoard();
+                  notifyListeners();
+                  Navigator.pop(context);
+                },
+                child: const Text('Fácil'),
+              ),
+              TextButton(
+                onPressed: () {
+                  dificultad = Difficulty.medium;
+                  resetBoard();
+                  notifyListeners();
+                  Navigator.pop(context);
+                },
+                child: const Text('Medio'),
+              ),
+              TextButton(
+                onPressed: () {
+                  dificultad = Difficulty.hard;
+                  resetBoard();
+                  notifyListeners();
+                  Navigator.pop(context);
+                },
+                child: const Text('Difícil'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                resetBoard();
+                Navigator.pop(context);
+              },
+              child: const Text('Cancelar'),
             ),
           ],
         );
