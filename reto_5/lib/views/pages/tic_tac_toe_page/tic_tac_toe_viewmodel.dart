@@ -1,6 +1,10 @@
+import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:reto_5/utils/constants.dart';
 
@@ -12,6 +16,9 @@ class TicTacToeViewModel extends BaseViewModel{
   String dialogMessage = '';
   String dialogTitle = '';
   Difficulty dificultad = Difficulty.easy;
+  AudioPlayer audioPlayer = AudioPlayer();
+  final String xAudioPath = 'assets/X_audio.wav';
+  final String oAudioPath = 'assets/O_audio.wav';
 
   int _currentIndex = 0;
   int get currentIndex => _currentIndex;
@@ -71,11 +78,18 @@ class TicTacToeViewModel extends BaseViewModel{
   }
 
 
-  void makeMove(int row, int col){
+  Future<void> makeMove(int row, int col) async {
     if(board[row][col] == '' && !isGameOver){
 
       board[row][col] = currentPlayer;
       notifyListeners();
+
+      ByteData xAudio = await rootBundle.load(xAudioPath);
+      Uint8List xAudioList = xAudio.buffer.asUint8List();
+      await audioPlayer.play(BytesSource(xAudioList));
+
+      sleep(const Duration(milliseconds: 300));
+
 
       if(isWinner(currentPlayer)){
         showDialogMessage(humanPlayer, false);
@@ -93,7 +107,7 @@ class TicTacToeViewModel extends BaseViewModel{
   }
 
 
-  void makeAIMove(){
+  Future<void> makeAIMove() async {
     if(dificultad == Difficulty.easy){
       makeRandomMove();
     }
@@ -103,6 +117,10 @@ class TicTacToeViewModel extends BaseViewModel{
     else if(dificultad == Difficulty.hard){
       makeWinningMove();
     }
+
+    ByteData oAudio = await rootBundle.load(oAudioPath);
+    Uint8List oAudioList = oAudio.buffer.asUint8List();
+    await audioPlayer.play(BytesSource(oAudioList));
 
     if(isWinner(aiPlayer)){
       showDialogMessage(aiPlayer, false);
