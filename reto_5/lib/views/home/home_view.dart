@@ -25,7 +25,12 @@ class HomeView extends StatelessWidget {
           ),
         ),
 
-        body: SafeArea(child: SingleChildScrollView(child: model.pages[model.currentIndex])),
+        body: OrientationBuilder(
+          builder: (context, orientation) {
+            print(orientation);
+            return SingleChildScrollView(child: model.pages[model.currentIndex]);
+          }
+        ),
 
         bottomNavigationBar: BottomNavbarView(
           onChangeIndex: model.changeIndex,

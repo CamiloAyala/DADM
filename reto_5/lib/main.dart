@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomeView(title: 'Reto 5'),
+      home: const HomeView(title: 'Reto 6'),
     );
   }
 }

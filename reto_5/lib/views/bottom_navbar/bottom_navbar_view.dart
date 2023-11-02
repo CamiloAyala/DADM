@@ -23,6 +23,7 @@ class BottomNavbarView extends StatelessWidget
       viewModelBuilder: () => BottomNavbarViewModel(), 
       builder: (context, BottomNavbarViewModel model, child) => SafeArea(
         child: Container(
+          height: 65,
           color: Theme.of(context).colorScheme.background,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 50),

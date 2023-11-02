@@ -10,7 +10,7 @@ class HomePageView extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 25.0),
           child: Text(
-            'RETO 4',
+            'RETO 6',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),

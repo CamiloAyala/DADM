@@ -18,6 +18,6 @@ class HomeViewModel extends BaseViewModel {
 
   final List<Widget> pages = [
     const HomePageView(),
-    const TicTacToeView(title: 'Reto 5'),
+    const TicTacToeView(title: 'Reto 6'),
   ];
 }
