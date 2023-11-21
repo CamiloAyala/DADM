@@ -28,6 +28,7 @@ class _MapViewState extends State<MapView> {
         body: Stack(
           children: [
             GoogleMap(
+              mapType: MapType.normal,
               zoomControlsEnabled: false,
               myLocationButtonEnabled: false,
               myLocationEnabled: true,
