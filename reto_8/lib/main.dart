@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:reto_8/app/app.locator.dart';
+import 'package:reto_8/ui/views/company_list/company_list_view.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:reto_8/app/app.router.dart';
+import 'package:reto_8/services/database_service.dart';
 
-void main() {
+void main() async {
+  setupLocator();
   runApp(const MyApp());
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final databaseService = locator<DatabaseService>();
+  await databaseService.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -13,10 +24,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      navigatorKey: StackedService.navigatorKey,
+      onGenerateRoute: StackedRouter().onGenerateRoute,
+      home: const CompanyListView()
     );
   }
 }
